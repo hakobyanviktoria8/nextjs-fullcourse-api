@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 
-
 function Comments() {
     const [commentsData, setCommentsData] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
     //fetch data inside api/comments
+    // use client side fetch data
     const fetchComments = async () => {
         setIsLoading(true)
         const res = await fetch("/api/comments")

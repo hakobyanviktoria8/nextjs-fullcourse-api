@@ -1,3 +1,4 @@
+// make comments db
 export const comments = [
     {
         id: 1,
