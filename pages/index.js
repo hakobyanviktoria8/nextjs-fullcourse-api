@@ -7,9 +7,6 @@ function Home() {
       <h1>Home page</h1>
       <hr/>
         <Link href="/comments">Comments </Link>
-
-
-
     </div>
   )
 }
