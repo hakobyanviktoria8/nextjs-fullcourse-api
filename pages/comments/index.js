@@ -15,6 +15,7 @@ function Comments() {
         setIsLoading(false)
     }
 
+    // add new comments
     const handlerComments = async () => {
         console.log(comment);
         // when POST req second argument is required
@@ -27,6 +28,14 @@ function Comments() {
         })
         const data = await res.json()
         console.log(data)
+    }
+
+    // delete comment
+    const handelDelete = async (id) => {
+        const res = await fetch("/api/comments")
+        const data = await res.json()
+        const newComments = data.filter(x=>x.id !== id)
+        setCommentsData(newComments)
     }
 
     return (
@@ -44,8 +53,9 @@ function Comments() {
                 <h2>Loading...</h2>
             :
                 commentsData?.map(x=>
-                    <div key= {x.id}>
-                        <h2>{x.id}. {x.text}</h2>
+                    <div key= {x.id} style={{display:"flex", alignItems: "center"}}>
+                        <h2>{x.id}. {x.text} </h2>
+                        <button onClick={()=>handelDelete(x.id)}> Delete</button>
                     </div>
                 )
             }
