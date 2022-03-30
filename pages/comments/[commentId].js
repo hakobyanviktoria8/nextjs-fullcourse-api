@@ -4,32 +4,42 @@ import { useRouter } from 'next/router'
 // imports all comments here
 import { comments } from "../../data/comments";
 
-function CommentId() {
-    const router = useRouter()
-    const id = router.query.commentId
-    console.log(comments)
+function CommentId({comment}) {
+    // const router = useRouter()
+    // const id = router.query.commentId
+    console.log(comment)
 
   return (
     <div>
-        <h1>Comment id  is a {id}</h1> 
-        <h2>{comments[id]?.id} . {comments[id]?.text}</h2>
+        <h1>Comment</h1> 
+        <h1>Comment id  is a {comment.id}</h1> 
+        <h2>{comment.id}. {comment.text}</h2>
     </div>
   )
 }
 
 export default CommentId
 
-// didn't working TypeError Only absolute URLs are supported
-// export async function getServerSideProps(context) {
-//     const params = {context}
-//     const id = {params}
-//     console.log(params)
-//     const res = await fetch(`/api/comments/${id}`)
-//     const data = await res.json()
-//     console.log(data)
-//     return {
-//       props: {
-//           comment : data
-//       }, // will be passed to the page component as props
-//     }
-//   }
+export async function getStaticPaths() {
+    return {
+      paths: [
+          {params:{commentId :"1"}},
+          {params:{commentId :"2"}},
+          {params:{commentId :"3"}},
+          {params:{commentId :"4"}},
+      ],
+      fallback: false
+    }
+  }
+
+export async function getStaticProps(context) {
+    const {params} = context
+    const {commentId} = params
+    const comment = comments.find(x=>x.id === parseInt(commentId))
+    console.log("__________________", comment)
+    return {
+      props: {
+          comment,
+      },
+    }
+  }
