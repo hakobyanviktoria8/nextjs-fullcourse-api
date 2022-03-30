@@ -32,10 +32,13 @@ function Comments() {
 
     // delete comment
     const handelDelete = async (id) => {
-        const res = await fetch("/api/comments")
+        const res = await fetch(`/api/comments/${id}`, {
+            method:"DELETE"
+        })
         const data = await res.json()
-        const newComments = data.filter(x=>x.id !== id)
-        setCommentsData(newComments)
+        console.log(data) // log comment id and text
+        // to update rendering data
+        fetchComments()
     }
 
     return (
@@ -55,7 +58,7 @@ function Comments() {
                 commentsData?.map(x=>
                     <div key= {x.id} style={{display:"flex", alignItems: "center"}}>
                         <h2>{x.id}. {x.text} </h2>
-                        <button onClick={()=>handelDelete(x.id)}> Delete</button>
+                        <button onClick={()=>handelDelete(x.id)}> Delete </button>
                     </div>
                 )
             }
