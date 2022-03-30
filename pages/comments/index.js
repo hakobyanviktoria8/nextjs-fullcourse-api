@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, {useState} from 'react'
 
 function Comments() {
@@ -57,7 +58,7 @@ function Comments() {
             :
                 commentsData?.map(x=>
                     <div key= {x.id} style={{display:"flex", alignItems: "center"}}>
-                        <h2>{x.id}. {x.text} </h2>
+                        <Link href={`/comments/${x.id}`}><a>{x.id}. {x.text}</a></Link>
                         <button onClick={()=>handelDelete(x.id)}> Delete </button>
                     </div>
                 )
